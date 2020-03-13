@@ -23,7 +23,7 @@
 #elif LINUX_VERSION_CODE < KERNEL_VERSION(4, 6, 0)
 /* Kernel version 4.6.0 removes get_user_pages macro. We should use get_user_pages_remote anyway.
    (See https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/include/linux/mm.h?id=c12d2da56d0e07d230968ee2305aaa86b93a6832) */
-#   define get_user_pages_remote(tsk,mm,start,nr_pages,write,force,pages,vmas)  get_user_pages(tsk,mm,start,nr_pages,write,force,pages,vmas)
+#   define get_user_pages_remote(tsk,mm,start,nr_pages,write,force,pages,vmas)  get_user_pages(tsk,mm,start,nr_pages, ((write) ? FOLL_WRITE : 0) | ((force) ? FOLL_FORCE : 0), pages,vmas)
 #endif
 
 struct mount {
