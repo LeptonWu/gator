@@ -28,8 +28,10 @@
  */
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4, 14, 0)
 #define GLOBAL_ZONE_PAGE_STATE(item)    global_page_state(item)
-#else
+#elif LINUX_VERSION_CODE < KERNEL_VERSION(4, 19, 0)
 #define GLOBAL_ZONE_PAGE_STATE(item)    global_zone_page_state(item)
+#else
+#define GLOBAL_ZONE_PAGE_STATE(item)    global_node_page_state(item)
 #endif
 
 enum {
